@@ -1,9 +1,7 @@
 #include <bits/stdc++.h>
-#include <algorithm>
 using namespace std;
 
-int main() {
-    // N / X の切り上げ
-    int N, X;
-    int ans = (N + X - 1) / X;
+int RoundUpDivision(int a, int b) {
+    int ans = (a + b - 1) / b;
+    return ans;
 }
