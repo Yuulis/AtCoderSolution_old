@@ -2,8 +2,17 @@
 using namespace std;
 
 int main() {
-    int a;
-    cin >> a;
+    int N;
+    cin >> N;
 
-    cout << a << endl;
+    vector<int> A(N);
+    for (int i = 0; i < N; i++) cin >> A.at(i);
+
+    vector<pair<int, int>> B(N);
+    for (int i = 0; i < N; i++) {
+        int a, b;
+        cin >> a >> b;
+        B.at(i).first = a;
+        B.at(i).second = b;
+    }
 }
