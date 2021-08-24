@@ -1,8 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 
-using LL = long long;
 #define INF 1e+9;
+#define MOD 1000000007;
 
 int main() {
     int N;
