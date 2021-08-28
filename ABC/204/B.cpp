@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-using Graph = vector<vector<int>>;
 typedef long long ll;
 
 #define INF 1e+9;
@@ -9,15 +8,13 @@ typedef long long ll;
 int main() {
     int N;
     cin >> N;
-
     vector<int> A(N);
     for (int i = 0; i < N; i++) cin >> A.at(i);
 
-    vector<pair<int, int>> B(N);
+    int sum = 0;
     for (int i = 0; i < N; i++) {
-        int a, b;
-        cin >> a >> b;
-        B.at(i).first = a;
-        B.at(i).second = b;
+        if (A.at(i) > 10) sum += A.at(i) - 10;
     }
+
+    cout << sum << endl;
 }
