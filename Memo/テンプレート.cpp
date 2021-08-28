@@ -13,11 +13,10 @@ int main() {
     vector<int> A(N);
     for (int i = 0; i < N; i++) cin >> A.at(i);
 
-    vector<pair<int, int>> B(N);
+    vector<pair<int, int>> B;
     for (int i = 0; i < N; i++) {
         int a, b;
         cin >> a >> b;
-        B.at(i).first = a;
-        B.at(i).second = b;
+        B.push_back({a, b});
     }
 }
