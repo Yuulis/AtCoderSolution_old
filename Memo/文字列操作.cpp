@@ -17,4 +17,8 @@ int main() {
         prev_permutation(S.begin(), S.end());  // next_permutationの逆
     }
     cout << S << endl;
+
+    // 大文字判定
+    char s;
+    if (isupper(s)) cout << "大文字" << endl;
 }
