@@ -21,4 +21,8 @@ int main() {
     // 大文字判定
     char s;
     if (isupper(s)) cout << "大文字" << endl;
+
+    // 辞書順i文字目のアルファベット
+    int i = 3;
+    S += (char)('a' + i - 1);
 }
