@@ -9,10 +9,11 @@ typedef long long ll;
 int main() {
     int N;
     cin >> N;
-
     vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
+    for (int i = 0; i < N; i++) cin >> A.at(i);
 
-    vector<pair<int, int>> B(N);
-    for (int i = 0; i < N; i++) cin >> B[i].first >> B[i].second;
+    // 二分探索
+    if (binary_search(A.begin(), A.end(), 5)) {
+        cout << "Found" << endl;  // 配列Aに5が入っている
+    }
 }
