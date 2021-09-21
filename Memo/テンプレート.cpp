@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+
 #include <unordered_set>
 
 using namespace std;
@@ -25,4 +26,6 @@ int main() {
             cin >> C[i][j];
         }
     }
+
+    cout << fixed << setprecision(10) << N << endl;
 }
