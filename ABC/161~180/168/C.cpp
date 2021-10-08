@@ -29,21 +29,15 @@ typedef long long ll;
 constexpr double PI = 3.14159265358979;
 
 int main() {
-    int N, M;
-    cin >> N >> M;
+    int A, B, H, M;
+    cin >> A >> B >> H >> M;
 
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
+    double angle_h = 0.5 * ((H * 60) + M) * PI / 180;
+    double angle_m = 6 * M * PI / 180;
 
-    vector<pair<int, int>> B(N);
-    for (int i = 0; i < N; i++) cin >> B[i].first >> B[i].second;
+    double angle = angle_h - angle_m;
 
-    vector<vector<int>> C(M, vector<int>(N));
-    for (int i = 0; i < M; i++) {
-        for (int j = 0; j < N; j++) {
-            cin >> C[i][j];
-        }
-    }
+    double dis = sqrt(A * A + B * B - 2 * A * B * cos(angle));
 
-    cout << fixed << setprecision(10) << N << endl;
+    cout << fixed << setprecision(10) << dis << endl;
 }
