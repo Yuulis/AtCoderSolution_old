@@ -31,21 +31,13 @@ constexpr double PI = 3.14159265358979;
 // ======================================== //
 
 int main() {
-    int N, M;
-    cin >> N >> M;
+    int A, B, C, K;
+    cin >> A >> B >> C >> K;
 
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-
-    vector<pair<int, int>> B(N);
-    for (int i = 0; i < N; i++) cin >> B[i].first >> B[i].second;
-
-    vector<vector<int>> C(M, vector<int>(N));
-    for (int i = 0; i < M; i++) {
-        for (int j = 0; j < N; j++) {
-            cin >> C[i][j];
-        }
-    }
-
-    cout << fixed << setprecision(10) << N << endl;
+    if (A >= K)
+        cout << K << endl;
+    else if (A + B >= K)
+        cout << A << endl;
+    else
+        cout << A - (K - (A + B)) << endl;
 }

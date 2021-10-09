@@ -28,24 +28,17 @@ typedef long long ll;
 #define MOD 1000000007;
 constexpr double PI = 3.14159265358979;
 
-// ======================================== //
-
 int main() {
-    int N, M;
-    cin >> N >> M;
+    string S, T;
+    cin >> S >> T;
 
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-
-    vector<pair<int, int>> B(N);
-    for (int i = 0; i < N; i++) cin >> B[i].first >> B[i].second;
-
-    vector<vector<int>> C(M, vector<int>(N));
-    for (int i = 0; i < M; i++) {
-        for (int j = 0; j < N; j++) {
-            cin >> C[i][j];
+    for (int i = 0; i < S.size(); i++)
+    {
+        if (S[i] != T[i]) {
+            cout << "No" << endl;
+            return 0;
         }
     }
 
-    cout << fixed << setprecision(10) << N << endl;
+    cout << "Yes" << endl;
 }
