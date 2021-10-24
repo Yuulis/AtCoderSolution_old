@@ -73,6 +73,7 @@
     "Asum",
     "chmax",
     "chmin",
+    "Nstr",
     "stoi",
     "Takahashi"
   ],
