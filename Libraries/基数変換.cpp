@@ -13,3 +13,15 @@ int Kto10(ll x, ll k) {
     }
     return ans;
 }
+
+// 10進数をK進数に変換
+int NumtoK(ll x, ll k) {
+    string s;
+    while (x != 0)
+    {
+        s += to_string(x % k);
+        x /= k;
+    }
+    int ans = atoi(s.c_str());
+    return ans;
+}
