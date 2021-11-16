@@ -31,27 +31,27 @@ bool chmin(T &a, const T &b) {
     return 0;
 }
 
+bool isPrime(int x) {
+    if (x < 2)
+        return false;
+    else {
+        for (int i = 2; i * i <= x; i++) {
+            if (x % i == 0) return false;
+        }
+    }
+    return true;
+}
+
 // ======================================== //
 
 int main() {
-    int N, M;
-    cin >> N >> M;
+    int X;
+    cin >> X;
 
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-
-    vector<pair<int, int>> B(N);
-    for (int i = 0; i < N; i++) cin >> B[i].first >> B[i].second;
-
-    vector<vector<int>> C(M, vector<int>(N));
-    for (int i = 0; i < M; i++) {
-        for (int j = 0; j < N; j++) {
-            cin >> C[i][j];
-        }
+    int cnt = X;
+    while (!isPrime(cnt)) {
+        cnt++;
     }
 
-    map<int, int> D;
-    set<int> E;
-
-    cout << fixed << setprecision(10) << N << endl;
+    cout << cnt << endl;
 }
