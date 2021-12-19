@@ -1,7 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool is_pow2(int x) {
+typedef long long ll;
+
+bool is_pow2(ll x) {
     if (x == 0) {
         return false;
     }

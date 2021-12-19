@@ -2,6 +2,7 @@
 using namespace std;
 
 typedef long long ll;
+#define all(x) (x).begin(), (x).end()
 
 // 計算量は O(sqrt(N))
 vector<ll> divisor(ll n) {
@@ -12,6 +13,6 @@ vector<ll> divisor(ll n) {
             if (i * i != n) ret.push_back(n / i);
         }
     }
-    sort(ret.begin(), ret.end());
+    sort(all(ret));
     return ret;
 }

@@ -1,9 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int factorialMethod(int N) {
+typedef long long ll;
+
+int factorialMethod(ll N) {
     int ans = 1;
-    for (int i = 1; i <= N; i++) {
+    for (ll i = 1; i <= N; i++) {
         ans *= i;
     }
     return ans;
