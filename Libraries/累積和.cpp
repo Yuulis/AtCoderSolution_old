@@ -13,4 +13,6 @@ int main() {
 
     // [3, 8)の総和
     cout << s[8] - s[3] << endl;
+
+    // cf. https://atcoder.jp/contests/abc233/tasks/abc233_d
 }

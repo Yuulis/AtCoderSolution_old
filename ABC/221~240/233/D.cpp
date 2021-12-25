@@ -35,36 +35,20 @@ bool chmin(T &a, const T &b) {
 // ======================================== //
 
 int main() {
-    int N, M;
-    cin >> N >> M;
-
-    vector<int> A(N);
+    ll N, K;
+    cin >> N >> K;
+    vector<ll> A(N);
     for (int i = 0; i < N; i++) cin >> A[i];
 
-    vector<pair<int, int>> B(N);
-    for (int i = 0; i < N; i++) cin >> B[i].first >> B[i].second;
+    vector<ll> sum(N + 1, 0);
+    for (int i = 0; i < N; ++i) sum[i + 1] = sum[i] + A[i];
 
-    vector<vector<int>> C(M, vector<int>(N));
-    for (int i = 0; i < M; i++) {
-        for (int j = 0; j < N; j++) {
-            cin >> C[i][j];
-        }
+    map<ll, ll> mp;
+    ll ans = 0;
+    for (ll i = 1; i < N+1; i++) {
+        mp[sum[i - 1]]++;
+        ans += mp[sum[i] - K];
     }
 
-    vector<vector<ll>> v;
-    v.resize(N);
-    for (int i = 0; i < N; i++) {
-        ll L;
-        cin >> L;
-
-        v[i].resize(L);
-        for (int j = 0; j < L; j++) {
-            cin >> v[i][j];
-        }
-    }
-
-    map<int, int> D;
-    set<int> E;
-
-    cout << fixed << setprecision(10) << N << endl;
+    cout << ans << endl;
 }

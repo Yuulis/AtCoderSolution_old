@@ -32,26 +32,29 @@ bool chmin(T &a, const T &b) {
     return 0;
 }
 
+ll N, X;
+ll ans = 0;
+vector<vector<ll>> v;
+
+void calc(ll pos, ll multiple) {
+    if (pos == N) {
+        if (multiple == X) {
+            ans++;
+        }
+        return;
+    }
+
+    for (ll c : v[pos]) {
+        if (multiple > X / c) continue;
+        calc(pos + 1, multiple * c);
+    }
+}
+
 // ======================================== //
 
 int main() {
-    int N, M;
-    cin >> N >> M;
+    cin >> N >> X;
 
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-
-    vector<pair<int, int>> B(N);
-    for (int i = 0; i < N; i++) cin >> B[i].first >> B[i].second;
-
-    vector<vector<int>> C(M, vector<int>(N));
-    for (int i = 0; i < M; i++) {
-        for (int j = 0; j < N; j++) {
-            cin >> C[i][j];
-        }
-    }
-
-    vector<vector<ll>> v;
     v.resize(N);
     for (int i = 0; i < N; i++) {
         ll L;
@@ -63,8 +66,7 @@ int main() {
         }
     }
 
-    map<int, int> D;
-    set<int> E;
+    calc(0, 1);
 
-    cout << fixed << setprecision(10) << N << endl;
+    cout << ans << endl;
 }
