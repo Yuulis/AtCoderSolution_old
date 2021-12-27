@@ -32,29 +32,28 @@ bool chmin(T &a, const T &b) {
     return 0;
 }
 
-vector<ll> divisor(ll n) {
-    vector<ll> ret;
-    for (ll i = 1; i * i <= n; i++) {
-        if (n % i == 0) {
-            ret.push_back(i);
-            if (i * i != n) ret.push_back(n / i);
-        }
-    }
-    sort(all(ret));
-    return ret;
-}
-
 // ======================================== //
 
 int main() {
-    ll N;
+    int N;
     cin >> N;
-
-    vector<ll> v = divisor(N);
-    ll ans = INFL;
-    for (int i = 0; i < v.size(); i++) {
-        chmin(ans, (v[i] - 1) + (N / v[i] - 1));
+    vector<string> S(N);
+    vector<int> P(N);
+    for (int i = 0; i < N; i++) {
+        cin >> S[i] >> P[i];
     }
 
-    cout << ans << endl;
+    vector<int> num(N);
+    iota(all(num), 0);
+
+    sort(all(num), [&](const int &a, const int &b) {
+        if (S[a] == S[b]) {
+            return P[a] > P[b];
+        } else
+            return S[a] < S[b];
+    });
+
+    for (auto &&i : num) {
+        cout << i + 1 << endl;
+    }
 }

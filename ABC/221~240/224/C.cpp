@@ -40,10 +40,12 @@ int main() {
     for (int i = 0; i < N; i++) {
         for (int j = i + 1; j < N; j++) {
             for (int k = j + 1; k < N; k++) {
-                if ((X[i] * Y[j] + X[j] * Y[k] + X[k] * Y[i]) -
-                        (X[i] * Y[k] + X[j] * Y[i] + X[k] * Y[j]) !=
-                    0)
-                    ans++;
+                ll vaX = X[j] - X[i];
+                ll vaY = Y[j] - Y[i];
+                ll vbX = X[k] - X[i];
+                ll vbY = Y[k] - Y[i];
+
+                if ((vaX * vbY) - (vbX * vaY) != 0) ans++;
             }
         }
     }

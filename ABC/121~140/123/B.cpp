@@ -32,29 +32,21 @@ bool chmin(T &a, const T &b) {
     return 0;
 }
 
-vector<ll> divisor(ll n) {
-    vector<ll> ret;
-    for (ll i = 1; i * i <= n; i++) {
-        if (n % i == 0) {
-            ret.push_back(i);
-            if (i * i != n) ret.push_back(n / i);
-        }
-    }
-    sort(all(ret));
-    return ret;
-}
-
 // ======================================== //
 
 int main() {
-    ll N;
-    cin >> N;
+    vector<int> dishes(5);
+    cin >> dishes[0] >> dishes[1] >> dishes[2] >> dishes[3] >> dishes[4];
 
-    vector<ll> v = divisor(N);
-    ll ans = INFL;
-    for (int i = 0; i < v.size(); i++) {
-        chmin(ans, (v[i] - 1) + (N / v[i] - 1));
-    }
+    int ans = INF;
+    do {
+        int time = 0;
+        for (int i = 0; i < 5; i++) {
+            if (time % 10 != 0) time += 10 - (time % 10);
+            time += dishes[i];
+        }
+        chmin(ans, time);
+    } while (next_permutation(all(dishes)));
 
     cout << ans << endl;
 }
