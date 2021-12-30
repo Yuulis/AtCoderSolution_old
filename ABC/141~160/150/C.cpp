@@ -35,27 +35,21 @@ bool chmin(T &a, const T &b) {
 // ======================================== //
 
 int main() {
-    ll K;
-    string S;
-    cin >> S >> K;
+    int N;
+    cin >> N;
+    vector<int> P(N), Q(N);
+    for (int i = 0; i < N; i++) cin >> P[i];
+    for (int i = 0; i < N; i++) cin >> Q[i];
 
-    ll N = S.size();
-    
-    vector<ll> cnt(N + 1);
-    for (ll i = 0; i <= N - 1; i++) {
-        if (S[i] == '.')
-            cnt[i + 1] = cnt[i] + 1;
-        else
-            cnt[i + 1] = cnt[i];
-    }
+    vector<int> order(N);
+    iota(all(order), 1);
+    int a = 0, b = 0;
+    int cnt = 0;
+    do {
+        cnt++;
+        if (order == P) a = cnt;
+        if (order == Q) b = cnt;
+    } while (next_permutation(all(order)));
 
-    ll ans = 0, r = 0;
-    for (ll l = 0; l <= N - 1; l++) {
-        while (r < N && cnt[r + 1] - cnt[l] <= K) {
-            r++;
-        }
-        ans = max(ans, r-l);
-    }
-
-    cout << ans << endl;
+    cout << abs(a - b) << endl;
 }
