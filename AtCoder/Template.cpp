@@ -22,7 +22,7 @@ template <class T> bool chmin(T &a, const T &b) { if (b < a) { a = b; return 1; 
 int main() {
     int N, M;
     cin >> N >> M;
-
+    
     vector<int> A(N);
     for (int i = 0; i < N; i++) cin >> A[i];
 
@@ -35,7 +35,7 @@ int main() {
             cin >> C[i][j];
         }
     }
-
+    
     vector<vector<ll>> v;
     v.resize(N);
     for (int i = 0; i < N; i++) {
