@@ -35,7 +35,6 @@ bool chmin(T &a, const T &b) {
 int main() {
     int N;
     cin >> N;
-
     map<string, int> flag;
     for (int i = 0; i < N; i++) {
         string s;
@@ -45,11 +44,11 @@ int main() {
 
     int MAX = 0;
     for (auto &p : flag) {
-        chmax(MAX, p.second);
+        chmax(M, p.second);
     }
 
     for (auto &p : flag) {
-        if (p.second == MAX) {
+        if (p.second == M) {
             cout << p.first << endl;
         }
     }
