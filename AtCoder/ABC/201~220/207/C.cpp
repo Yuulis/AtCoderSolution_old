@@ -22,26 +22,36 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    ll N, K;
-    cin >> N >> K;
-    vector<ll> a(N);
-    for (int i = 0; i < N; i++) cin >> a[i];
+    int N, M;
+    cin >> N >> M;
 
-    ll all = K / N;
-    K %= N;
+    vector<int> A(N);
+    for (int i = 0; i < N; i++) cin >> A[i];
 
-    vector<ll> order(N);
-    iota(all(order), 0);
-    sort(all(order), [&](const int& i, const int& j) {
-        return a[i] < a[j];
-    });
+    vector<pair<int, int>> B(N);
+    for (int i = 0; i < N; i++) cin >> B[i].first >> B[i].second;
 
-    vector<ll> ans(N, all);
-    for (ll i = 0; i < K; i++) {
-        ans[order[i]]++;
+    vector<vector<int>> C(M, vector<int>(N));
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            cin >> C[i][j];
+        }
     }
 
-    for (ll i = 0; i < N; i++) {
-        cout << ans[i] << endl;
+    vector<vector<ll>> v;
+    v.resize(N);
+    for (int i = 0; i < N; i++) {
+        ll L;
+        cin >> L;
+
+        v[i].resize(L);
+        for (int j = 0; j < L; j++) {
+            cin >> v[i][j];
+        }
     }
+
+    map<int, int> D;
+    set<int> E;
+
+    cout << fixed << setprecision(10) << N << endl;
 }

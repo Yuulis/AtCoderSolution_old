@@ -22,26 +22,20 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    ll N, K;
-    cin >> N >> K;
-    vector<ll> a(N);
-    for (int i = 0; i < N; i++) cin >> a[i];
-
-    ll all = K / N;
-    K %= N;
-
-    vector<ll> order(N);
-    iota(all(order), 0);
-    sort(all(order), [&](const int& i, const int& j) {
-        return a[i] < a[j];
-    });
-
-    vector<ll> ans(N, all);
-    for (ll i = 0; i < K; i++) {
-        ans[order[i]]++;
+    int N;
+    cin >> N;
+    ll sum = 0;
+    for (int i = 0; i < 4 * N - 1; i++) {
+        int a;
+        cin >> a;
+        sum += a;
     }
 
-    for (ll i = 0; i < N; i++) {
-        cout << ans[i] << endl;
+    ll all = 0;
+    for (ll i = 1; i <= N; i++) {
+        all += i;
     }
+    all *= 4;
+
+    cout << all - sum << endl;
 }

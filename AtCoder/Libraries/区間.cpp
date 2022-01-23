@@ -22,26 +22,12 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    ll N, K;
-    cin >> N >> K;
-    vector<ll> a(N);
-    for (int i = 0; i < N; i++) cin >> a[i];
-
-    ll all = K / N;
-    K %= N;
-
-    vector<ll> order(N);
-    iota(all(order), 0);
-    sort(all(order), [&](const int& i, const int& j) {
-        return a[i] < a[j];
-    });
-
-    vector<ll> ans(N, all);
-    for (ll i = 0; i < K; i++) {
-        ans[order[i]]++;
-    }
-
-    for (ll i = 0; i < N; i++) {
-        cout << ans[i] << endl;
-    }
+    // ‹æŠÔ‚ð”¼ŠJ‹æŠÔ‚É’¼‚·(•ïŠÜŠÖŒW‚ªl—¶‚³‚ê‚Ä‚¢‚ê‚Î2”{‚µ‚Ä‚à‰Â)
+    // [l, r] -> [l, r + 0.5) -> [2l, 2r + 1)
+    // [l, r) -> [l, r) -> [2l, 2r)
+    // (l, r] -> [l + 0.5, r + 0.5) -> [2l + 1, 2r + 1)
+    // (l, r) -> [l + 0.5, r) -> [2l + 1, 2r)
 }
+
+// cf. https://atcoder.jp/contests/abc207/tasks/abc207_c
+// cf. https://algo-logic.info/sum-of-range/
