@@ -22,27 +22,23 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    vector<int> a(N), b(N);
-    for (int i = 0; i < N; i++) {
-        int t, l, r;
-        cin >> t >> l >> r;
-
-        if (t == 1) a[i] = l * 2, b[i] = r * 2 + 1;
-        else if (t == 2) a[i] = l * 2, b[i] = r * 2;
-        else if (t == 3) a[i] = l * 2 + 1, b[i] = r * 2 + 1;
-        else if (t == 4) a[i] = l * 2 + 1, b[i] = r * 2;
-    }
+    int N, M, C;
+    cin >> N >> M >> C;
+    vector<int> B(M);
+    for (int i = 0; i < M; i++) cin >> B[i];
 
     int cnt = 0;
+    
     for (int i = 0; i < N; i++) {
-        for (int j = i + 1; j < N; j++) {
-            int tempA = max(a[i], a[j]);
-            int tempB = min(b[i], b[j]);
+        int sum = 0;
+        for (int j = 0; j < M; j++) {
+            int a;
+            cin >> a;
 
-            if (tempA < tempB) cnt++;
+            sum += a * B[j];
         }
+
+        if (sum + C > 0) cnt++;
     }
 
     cout << cnt << endl;
