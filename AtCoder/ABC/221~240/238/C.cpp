@@ -2,11 +2,13 @@
 #include <map>
 #include <unordered_map>
 #include <unordered_set>
+#include <atcoder/modint.hpp>
 
 using namespace std;
+using namespace atcoder;
 using Graph = vector<vector<int>>;
-
-typedef long long ll;
+using mint = modint998244353;
+using ll = long long;
 
 #define all(x) (x).begin(), (x).end()
 
@@ -21,29 +23,24 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 
 // ======================================== //
 
-ll calcF(ll a, ll b) {
-    return (1 + (b - a + 1)) * (b - a + 1) / 2;
+mint sum(ll x) {
+    return mint(x + 1) * x / 2;
 }
 
 int main() {
     ll N;
     cin >> N;
+    
+    mint ans = 0;
+    ll l = 1;
+    while (l <= N) {
+        ll r = l * 10;
 
-    string s = to_string(N);
-    ll x = s.size();
-    x--;
+        ll len = min(N + 1, r) - l;
+        ans += sum(len);
 
-    ll ans = 0;
-
-    for (ll i = 0; i < x; i++) {
-        if (i == 0) ans += 45;
-
-        else ans += calcF(pow(10, i), pow(10, i + 1) - 1) % MOD;
-        ans %= MOD;
+        l *= 10;
     }
 
-    ans += calcF(pow(10, x), N) % MOD;
-    ans %= MOD;
-
-    cout << ans << endl;
+    cout << ans.val() << endl;
 }
