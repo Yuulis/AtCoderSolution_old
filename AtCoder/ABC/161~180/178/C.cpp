@@ -8,7 +8,7 @@ using namespace std;
 using namespace atcoder;
 using ll = long long;
 using Graph = vector<vector<int>>;
-using mint = modint998244353;
+using mint = modint1000000007;
 
 #define all(x) (x).begin(), (x).end()
 
@@ -21,16 +21,19 @@ template <class T> bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; 
 template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
 
 // ======================================== //
+mint modPow(ll x, ll n) {
+    mint ans = 1;
+    for (ll i = 0; i < n; i++) {
+        ans *= x;
+    }
+    return ans;
+}
 
 int main() {
     int N;
     cin >> N;
 
-    int sum = 0;
-    for (int i = 1; i < N; i++) {
-        if (N % i == 0) sum += N / i - 1;
-        else sum += N / i;
-    }
+    mint ans = modPow(10, N) - modPow(9, N) - modPow(9, N) + modPow(8, N);
 
-    cout << sum << endl;
+    cout << ans.val() << endl;
 }
