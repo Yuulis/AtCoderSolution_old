@@ -21,4 +21,10 @@ int main() {
     // 大文字判定
     char s;
     if (isupper(s)) cout << "大文字" << endl;
+
+    // Sの2文字目から5文字
+    S.substr(2, 5);
+
+    // Sの4文字目から最後まで
+    S.substr(4);
 }
