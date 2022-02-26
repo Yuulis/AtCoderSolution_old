@@ -2,7 +2,7 @@
 #include <map>
 #include <unordered_map>
 #include <unordered_set>
-#include <atcoder/modint.hpp>
+#include <atcoder/all>
 
 using namespace std;
 using namespace atcoder;
