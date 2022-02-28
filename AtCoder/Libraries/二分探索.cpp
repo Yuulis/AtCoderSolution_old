@@ -4,6 +4,7 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 // cf : https://qiita.com/ganyariya/items/33f1326154b85db465c3
+// cf : https://qiita.com/drken/items/97e37dd6143e33a64c8c
 
 int main() {
     int N;
