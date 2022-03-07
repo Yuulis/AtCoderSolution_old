@@ -14,4 +14,10 @@ int main() {
     if (binary_search(A.begin(), A.end(), 5)) {
         cout << "Found" << endl;  // 配列Aに5が入っている
     }
+
+    // Aの要素の中で、6以上である要素の、最小のイテレータを返す
+    auto itr = lower_bound(all(A), 6);
+
+    // Aの要素の中で、6より大きい要素の、最小のイテレータを返す
+    auto itr = upper_bound(all(A), 6);
 }
