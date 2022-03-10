@@ -8,6 +8,8 @@ using namespace std;
 
 // cf. ABC -231D
 
+// ACL : https://github.com/atcoder/ac-library/blob/master/atcoder/dsu.hpp
+
 
 struct UnionFind {
     vector<int> par; // par[i]:iの親の番号 (例) par[3] = 2 : 3の親が2
