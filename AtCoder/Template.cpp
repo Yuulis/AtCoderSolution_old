@@ -4,12 +4,13 @@
 using namespace std;
 using namespace atcoder;
 using ll = long long;
+using lld = long double;
 using Graph = vector<vector<int>>;
 using mint = modint998244353;
 
 #define all(x) (x).begin(), (x).end()
 
-constexpr double PI = 3.14159265358979;
+constexpr auto PI = 3.14159265358979;
 constexpr auto INF = 1e+9;
 constexpr auto INFL = 1LL << 60;
 
