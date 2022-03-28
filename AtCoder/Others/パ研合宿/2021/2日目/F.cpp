@@ -22,30 +22,12 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    int N, M;
-    cin >> N >> M;
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-    vector<pair<int, int>> B(N);
-    for (int i = 0; i < N; i++) cin >> B[i].first >> B[i].second;
-    vector<vector<int>> C(M, vector<int>(N));
-    for (int i = 0; i < M; i++) {
-        for (int j = 0; j < N; j++) {
-            cin >> C[i][j];
-        }
-    }
-    vector<vector<ll>> v;
-    v.resize(N);
-    for (int i = 0; i < N; i++) {
-        ll L;
-        cin >> L;
+    int N;
+    cin >> N;
 
-        v[i].resize(L);
-        for (int j = 0; j < L; j++) {
-            cin >> v[i][j];
-        }
+    if (N == 2) cout << "1 2 1 1 2 1" << endl;
+    else if (N == 3) cout << "1 3 1 2 2 3" << endl;
+    else {
+        cout << 1 << " " << N << " " << 1 << " " << N - 1 << " " << 1 << " " << N - 2 << endl;
     }
-    map<int, int> D;
-    set<int> E;
-    cout << fixed << setprecision(10) << N << endl;
 }
