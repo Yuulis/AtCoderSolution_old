@@ -22,17 +22,8 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    vector<int> d(N);
-    for (int i = 0; i < N; i++) cin >> d[i];
+    int a, b, c;
+    cin >> a >> b >> c;
 
-    int ans = 0;
-    for (int i = 0; i < N; i++) {
-        for (int j = i + 1; j < N; j++) {
-            ans += d[i] * d[j];
-        }
-    }
-
-    cout << ans << endl;
+    cout << min(a + b, min(b + c, c + a)) << endl;
 }

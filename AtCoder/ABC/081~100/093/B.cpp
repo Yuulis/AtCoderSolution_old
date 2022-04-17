@@ -22,17 +22,21 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    vector<int> d(N);
-    for (int i = 0; i < N; i++) cin >> d[i];
+	int A, B, K;
+	cin >> A >> B >> K;
 
-    int ans = 0;
-    for (int i = 0; i < N; i++) {
-        for (int j = i + 1; j < N; j++) {
-            ans += d[i] * d[j];
-        }
-    }
+	set<int> num;
+	for (int i = 0; i + A <= B && i < K; i++)
+	{
+		num.insert(i + A);
+	}
+	for (int i = 0; i < K && B - i >= A; i++)
+	{
+		num.insert(B - i);
+	}
 
-    cout << ans << endl;
+	for (auto& i : num)
+	{
+		cout << i << " ";
+	}
 }
