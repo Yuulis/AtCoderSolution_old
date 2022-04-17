@@ -22,10 +22,9 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    double D;
-    cin >> D;
+    int A, B, C;
+    cin >> A >> B >> C;
 
-    double ans = D / 100;
-
-    cout << fixed << setprecision(10) << ans << endl;
+    if (A + B + 1 >= C) cout << B + C << endl;
+    else cout << B + (A + B + 1) << endl;
 }

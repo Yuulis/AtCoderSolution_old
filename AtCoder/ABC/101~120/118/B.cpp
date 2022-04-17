@@ -22,10 +22,28 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    double D;
-    cin >> D;
+    int N, M;
+    cin >> N >> M;
+    vector<int> food(M, 0);
+    
+    for (int i = 0; i < N; i++)
+    {
+        int K;
+        cin >> K;
+        for (int j = 0; j < K; j++)
+        {
+            int A;
+            cin >> A;
+            A--;
+            food[A]++;
+        }
+    }
 
-    double ans = D / 100;
+    int ans = 0;
+    for (auto& i : food)
+    {
+        if (i == N) ans++;
+    }
 
-    cout << fixed << setprecision(10) << ans << endl;
+    cout << ans << endl;
 }

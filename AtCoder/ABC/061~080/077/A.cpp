@@ -22,10 +22,11 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    double D;
-    cin >> D;
+    string c1, c2;
+    cin >> c1 >> c2;
+    
+    reverse(all(c1));
 
-    double ans = D / 100;
-
-    cout << fixed << setprecision(10) << ans << endl;
+    if (c1 == c2) cout << "YES" << endl;
+    else cout << "NO" << endl;
 }

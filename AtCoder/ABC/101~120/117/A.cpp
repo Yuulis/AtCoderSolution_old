@@ -22,10 +22,8 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    double D;
-    cin >> D;
-
-    double ans = D / 100;
-
-    cout << fixed << setprecision(10) << ans << endl;
+    double T, X;
+    cin >> T >> X;
+    
+    cout << fixed << setprecision(10) << T / X << endl;
 }
