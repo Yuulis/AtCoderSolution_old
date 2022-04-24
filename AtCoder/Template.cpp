@@ -6,6 +6,7 @@ using namespace atcoder;
 using ll = long long;
 using lld = long double;
 using Graph = vector<vector<int>>;
+using Pair = vector<pair<int, int>>;
 using mint = modint998244353;
 
 #define all(x) (x).begin(), (x).end()
@@ -30,8 +31,6 @@ int main() {
 }
 
 int N, M;
-vector<pair<int, int>> B(N);
-for (int i = 0; i < N; i++) cin >> B[i].first >> B[i].second;
 vector<vector<int>> C(M, vector<int>(N));
 for (int i = 0; i < M; i++) {
     for (int j = 0; j < N; j++) {
@@ -49,5 +48,4 @@ for (int i = 0; i < N; i++) {
         cin >> v[i][j];
     }
 }
-map<int, int> D;
 set<int> E;

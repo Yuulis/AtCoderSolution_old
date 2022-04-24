@@ -1,29 +1,33 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 using Graph = vector<vector<int>>;
-typedef long long ll;
+using Graphw = vector<vector<Edge>>;
 
-#define INF 1e+9;
-#define MOD 1000000007;
-
-// 深さ優先探索
+// DFS再帰
 vector<bool> seen;
 void dfs(const Graph &G, int v) {
-    seen[v] = true;  // v を訪問済にする
+    seen[v] = true;
 
-    // v から行ける各頂点 next_v について
     for (auto next_v : G[v]) {
-        if (seen[next_v]) continue;  // next_v が探索済だったらスルー
-        dfs(G, next_v);              // 再帰的に探索
+        if (seen[next_v]) continue;
+        dfs(G, next_v);
     }
 }
 
+// 重み付きグラフ用
+struct Edge
+{
+    int to;
+    int weight;
+    Edge(int t, int w) : to(t), weight(w) {}
+};
+
 int main() {
-    // 頂点数と辺数
     int N, M;
     cin >> N >> M;
 
-    // グラフ入力受取 (ここでは無向グラフを想定)
+    // 重みなし無向グラフ
     Graph G(N);
     for (int i = 0; i < M; ++i) {
         int a, b;
@@ -32,7 +36,15 @@ int main() {
         G[b].push_back(a);
     }
 
-    // 頂点 0 をスタートとした探索
-    seen.assign(N, false);  // 全頂点を「未訪問」に初期化
+    // 重みあり無向グラフ
+    Graphw Gw(N);
+    for (int i = 0; i < M; i++)
+    {
+        int from, to, weight;
+        cin >> from >> to >> weight;
+        Gw[from].push_back(Edge(to, weight));
+    }
+
+    seen.assign(N, false);
     dfs(G, 0);
 }
