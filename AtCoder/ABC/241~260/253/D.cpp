@@ -22,30 +22,29 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 
 // ======================================== //
 
+ll gcd(ll x, ll y) {
+    if (x < y) swap(x, y);
+    ll r;
+    while (y > 0) {
+        r = x % y;
+        x = y;
+        y = r;
+    }
+    return x;
+}
+
+ll lcm(ll x, ll y) { return ll(x / gcd(x, y)) * y; }
+
 int main() {
-    int N;
-    cin >> N;
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-    cout << fixed << setprecision(10) << N << endl;
-}
+    ll N, A, B;
+    cin >> N >> A >> B;
+    
+    ll nA = N / A, nB = N / B, nAB = N / (lcm(A, B));
 
-int N, M;
-vector<vector<int>> C(M, vector<int>(N));
-for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-        cin >> C[i][j];
-    }
-}
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
+    ll sumA = (A + (A * nA)) * nA / 2;
+    ll sumB = (B + (B * nB)) * nB / 2;
+    ll sumAB = (lcm(A, B) + (lcm(A, B) * nAB)) * nAB / 2;
+    ll all = (1 + N) * N / 2;
 
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
-    }
+    cout << all - (sumA + sumB) + sumAB << endl;
 }
-set<int> E;

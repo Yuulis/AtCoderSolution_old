@@ -23,29 +23,31 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-    cout << fixed << setprecision(10) << N << endl;
-}
+    int N, M, K;
+    cin >> N >> M >> K;
+    mint sum = 0;
+    
+    vector<vector<mint>> dp(1010, vector<mint>(5050, 0));
+    for (int i = 1; i <= N; i++)
+    {
+        for (int j = 1; j <= M; j++)
+        {
+            if (i == 1) dp[i][j] = 1;
 
-int N, M;
-vector<vector<int>> C(M, vector<int>(N));
-for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-        cin >> C[i][j];
-    }
-}
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
+            else {
+                vector<mint> s(M + 1, 0);
+                for (int sj = 0; sj <= M; ++sj) s[sj + 1] = s[sj] + dp[i - 1][sj];
 
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
+                dp[i][j] += s[j - K] - s[0];
+                dp[i][j] += s[M] - s[j + K];
+            }
+        }
     }
+
+    for (int j = 1; j <= M; j++)
+    {
+        sum += dp[N][j];
+    }
+
+    cout << sum.val() << endl;
 }
-set<int> E;

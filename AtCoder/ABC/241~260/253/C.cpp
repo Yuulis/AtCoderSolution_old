@@ -23,29 +23,29 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-    cout << fixed << setprecision(10) << N << endl;
-}
+    int Q;
+    cin >> Q;
+    map<ll, ll> num;
+    
+    for (int i = 0; i < Q; i++)
+    {
+        int n;
+        cin >> n;
+        if (n == 1) {
+            int x;
+            cin >> x;
+            num[x]++;
+        }
+        else if (n == 2) {
+            int x, c;
+            cin >> x >> c;
 
-int N, M;
-vector<vector<int>> C(M, vector<int>(N));
-for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-        cin >> C[i][j];
+            num[x] -= min(num[x], (ll)c);
+            if (num[x] == 0) num.erase(x);
+        }
+        else {
+            int l = num.size();
+            cout << num.rbegin()->first - num.begin()->first << endl;
+        }
     }
 }
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
-
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
-    }
-}
-set<int> E;
