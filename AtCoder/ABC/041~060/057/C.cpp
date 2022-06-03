@@ -26,30 +26,35 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 
 // ======================================== //
 
+vector<ll> divisor(ll n) {
+    vector<ll> ret;
+    for (ll i = 1; i * i <= n; i++) {
+        if (n % i == 0) {
+            ret.push_back(i);
+            if (i * i != n) ret.push_back(n / i);
+        }
+    }
+    sort(all(ret));
+    return ret;
+}
+
 int main() {
-    int N;
+    ll N;
     cin >> N;
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-    cout << fixed << setprecision(10) << N << endl;
-}
+    
+    vector<ll> v = divisor(N);
 
-int N, M;
-vector<vector<int>> C(M, vector<int>(N));
-for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-        cin >> C[i][j];
-    }
-}
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
+    ll ans = INF;
+    for (ll a = 1; a * a <= N; a++)
+    {
+        if (N % a != 0) continue;
 
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
+        ll b = N / a;
+
+        ll l = max(to_string(a).size(), to_string(b).size());
+
+        ans = min(ans, l);
     }
+
+    cout << ans << endl;
 }
-set<int> E;
