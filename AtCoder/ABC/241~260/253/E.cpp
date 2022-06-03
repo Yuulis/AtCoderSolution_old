@@ -30,16 +30,21 @@ int main() {
     vector<vector<mint>> dp(1010, vector<mint>(5050, 0));
     for (int i = 1; i <= N; i++)
     {
+        vector<mint> sum(M + 1, 0);
+        for (int cnt = 1; cnt <= M; cnt++) sum[cnt] = sum[cnt - 1] + dp[i - 1][cnt];
+
         for (int j = 1; j <= M; j++)
         {
             if (i == 1) dp[i][j] = 1;
 
             else {
-                vector<mint> s(M + 1, 0);
-                for (int sj = 0; sj <= M; ++sj) s[sj + 1] = s[sj] + dp[i - 1][sj];
-
-                dp[i][j] += s[j - K] - s[0];
-                dp[i][j] += s[M] - s[j + K];
+                if (j - K >= 1) {
+                    dp[i][j] += sum[j - K];
+                }
+                if (j + K <= M) {
+                    dp[i][j] += sum[M] - sum[j + K - 1];
+                }
+                if (K == 0) dp[i][j] += -sum[j] + sum[j - 1];
             }
         }
     }
