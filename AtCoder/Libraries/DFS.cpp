@@ -5,7 +5,7 @@ using Graph = vector<vector<int>>;
 using Graphw = vector<vector<Edge>>;
 
 // DFS再帰
-vector<bool> seen;
+vector<bool> seen(3000);  // 頂点の数
 void dfs(const Graph &G, int v) {
     seen[v] = true;
 
