@@ -29,30 +29,48 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 
 // ======================================== //
 
+int dx[] = { -1, 1, 0, 0 };
+int dy[] = { 0, 0, -1, 1 };
+
 int main() {
-    int N;
-    cin >> N;
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-    cout << fixed << setprecision(10) << N << endl;
-}
-
-int N, M;
-vector<vector<int>> C(M, vector<int>(N));
-for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-        cin >> C[i][j];
+    int H, W;
+    cin >> H >> W;
+    vector<string> S(H);
+    for (int i = 0; i < H; i++) cin >> S[i];
+    
+    Graph dist(H, vector<int>(W));
+    for (int i = 0; i < H; i++)
+    {
+        for (int j = 0; j < W; j++)
+        {
+            dist[i][j] = INF;
+        }
     }
-}
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
+    dist[0][0] = 0;
 
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
+    queue<Pair> queue;
+    queue.push(Pair(0, 0));
+    while (!queue.empty())
+    {
+        Pair pos = queue.front();
+        queue.pop();
+
+        for (int i = 0; i < 4; i++)
+        {
+            int nx = pos.first + dx[i];
+            int ny = pos.second + dy[i];
+
+            if (nx < 0 || nx >= H) continue;
+            if (ny < 0 || ny >= W) continue;
+            if (dist[nx][ny] != INF) continue;
+            if (S[pos.first][pos.second] == S[nx][ny]) continue;
+            
+            dist[nx][ny] = dist[pos.first][pos.second] + 1;
+            queue.push(Pair(nx, ny));
+        }
     }
+
+    int ans = dist[H - 1][W - 1];
+    if (ans != INF) cout << ans << endl;
+    else cout << -1 << endl;
 }
-set<int> E;
