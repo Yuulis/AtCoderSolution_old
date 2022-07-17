@@ -30,29 +30,36 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-    cout << fix(10) << N << endl;
-}
+    int a, b, c, N;
+    cin >> a >> b >> c >> N;
 
-int N, M;
-vector<vector<int>> C(M, vector<int>(N));
-for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-        cin >> C[i][j];
+    vector<int> parts(a + b + c, 2);
+    vector<int> i(N), j(N), k(N), r(N);
+    for (int n = 0; n < N; n++)
+    {
+        cin >> i[n] >> j[n] >> k[n] >> r[n];
+        i[n]--;
+        j[n]--;
+        k[n]--;
+
+        if (r[n] == 1) {
+            parts[i[n]] = 1;
+            parts[j[n]] = 1;
+            parts[k[n]] = 1;
+        }
+    }
+
+    for (int n = 0; n < N; n++)
+    {
+        if (r[n] == 0) {
+            if (parts[i[n]] == 1 && parts[j[n]] == 1) parts[k[n]] = 0;
+            else if (parts[j[n]] == 1 && parts[k[n]] == 1) parts[i[n]] = 0;
+            else if (parts[k[n]] == 1 && parts[i[n]] == 1) parts[j[n]] = 0;
+        }
+    }
+
+    for (auto& i : parts)
+    {
+        cout << i << endl;
     }
 }
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
-
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
-    }
-}
-set<int> E;

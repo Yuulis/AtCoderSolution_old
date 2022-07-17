@@ -30,29 +30,26 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-    cout << fix(10) << N << endl;
-}
-
-int N, M;
-vector<vector<int>> C(M, vector<int>(N));
-for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-        cin >> C[i][j];
+    int a, b, n;
+    cin >> a >> b >> n;
+    vector<vector<bool>> pass(20, vector<bool>(20, true));
+    for (int i = 0; i < n; i++)
+    {
+        int x, y;
+        cin >> x >> y;
+        pass[x][y] = false;
     }
-}
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
 
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
+    vector<vector<int>> num(20, vector<int>(20, 0));
+    num[1][1] = 1;
+    for (int i = 1; i <= a; i++)
+    {
+        for (int j = 1; j <= b; j++)
+        {
+            num[i + 1][j] += pass[i + 1][j] * num[i][j];
+            num[i][j + 1] += pass[i][j + 1] * num[i][j];
+        }
     }
+
+    cout << num[a][b] << endl;
 }
-set<int> E;
