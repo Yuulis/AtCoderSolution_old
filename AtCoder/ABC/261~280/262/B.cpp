@@ -24,36 +24,36 @@ ll ceil(ll a, ll b) { if (a % b == 0) return a / b; return (a / b) + 1; }
 mint modPow(ll x, ll n) { mint ans = 1; for (ll i = 0; i < n; i++) ans *= x; return ans; }
 ll gcd(ll x, ll y) { if (x < y) swap(x, y); ll r; while (y > 0) { r = x % y; x = y; y = r; } return x; }
 ll lcm(ll x, ll y) { return ll(x / gcd(x, y)) * y; }
-ll nCk(ll N, ll K) { if (K < 0 || N < K) return 0; ll ans = 1; for (ll i = 1; i <= K; i++) { ans *= N--; ans /= i; } return ans; }
 template <class T> bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
 template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
 
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-    cout << fix(10) << N << endl;
-}
+    int N, M;
+    cin >> N >> M;
 
-int N, M;
-vector<vector<int>> C(M, vector<int>(N));
-for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-        cin >> C[i][j];
-    }
-}
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
+    vector<vector<int>> v(N + 1, vector<int>());
+    for (int i = 0; i < M; i++)
+    {
+        int U, V;
+        cin >> U >> V;
 
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
+        v[U].push_back(V);
+        v[V].push_back(U);
     }
+
+    int ans = 0;
+    for (int a = 1; a <= N; a++)
+    {
+        for (int b = a + 1; b <= N; b++)
+        {
+            for (int c = b + 1; c <= N; c++)
+            {
+                if (find(all(v[a]), b) != v[a].end() && find(all(v[b]), c) != v[b].end() && find(all(v[c]), a) != v[c].end()) ans++;
+            }
+        }
+    }
+
+    cout << ans << endl;
 }
-set<int> E;
