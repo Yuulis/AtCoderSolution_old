@@ -3,7 +3,7 @@
 
 #define all(x) (x).begin(), (x).end()
 #define fix(x) fixed << setprecision(x)
-#define rep(i,start,end) for(int i=(start);i<(int)(x);i++)
+#define rep(i,start,end) for(int i=(start);i<(int)(end);i++)
 #define rrep(i,start,end) for(int i=((int)(start));i>=(end);i--)
 
 constexpr auto PI = 3.14159265358979;
@@ -33,29 +33,16 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-    cout << fix(10) << N << endl;
-}
+	int N, M;
+	cin >> N >> M;
 
-int N, M;
-vector<vector<int>> C(M, vector<int>(N));
-for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-        cin >> C[i][j];
-    }
-}
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
+	vector<int> v;
+	rep(i, 0, N) v.push_back(0);
+	rep(i, 0, M - N) v.push_back(1);
 
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
-    }
+	do
+	{
+		rep(i, 0, M) if (v[i] == 0) cout << i + 1 << " ";
+		cout << endl;
+	} while (next_permutation(all(v)));
 }
-set<int> E;

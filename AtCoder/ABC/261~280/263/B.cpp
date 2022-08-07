@@ -3,8 +3,6 @@
 
 #define all(x) (x).begin(), (x).end()
 #define fix(x) fixed << setprecision(x)
-#define rep(i,start,end) for(int i=(start);i<(int)(x);i++)
-#define rrep(i,start,end) for(int i=((int)(start));i>=(end);i--)
 
 constexpr auto PI = 3.14159265358979;
 constexpr auto INF = 1e+9;
@@ -35,27 +33,17 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 int main() {
     int N;
     cin >> N;
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
-    cout << fix(10) << N << endl;
-}
-
-int N, M;
-vector<vector<int>> C(M, vector<int>(N));
-for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-        cin >> C[i][j];
+    vector<int> P(N + 1);
+    for (int i = 1; i < N; i++) {
+        cin >> P[i];
+        P[i]--;
     }
-}
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
 
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
+    vector<int> dp(N);
+    for (int i = 1; i < N; i++)
+    {
+        dp[i] = dp[P[i]] + 1;
     }
+    
+    cout << dp[N - 1] << endl;
 }
-set<int> E;
