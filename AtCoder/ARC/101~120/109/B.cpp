@@ -32,29 +32,16 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    vector<int> A(N);
-    rep(i, 0, N) cin >> A[i];
-    cout << fix(10) << N << endl;
-}
+	ll N;
+	cin >> N;
 
-int n, M;
-vector<vector<int>> C(M, vector<int>(n));
-for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-        cin >> C[i][j];
-    }
-}
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
+	ll l = 0;
+	ll r = 2e9;
+	while (r - l > 1)
+	{
+		ll k = (l + r) / 2;
+		(k * (k + 1) / 2 <= N + 1 ? l : r) = k;
+	}
 
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
-    }
+	cout << N - l + 1 << endl;
 }
-set<int> E;
