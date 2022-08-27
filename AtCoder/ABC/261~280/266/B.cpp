@@ -33,19 +33,8 @@ inline auto mod(auto x, auto r) { return (x % r + r) % r; }
 // ======================================== //
 
 int main() {
-    int N;
+    ll N;
     cin >> N;
-    cout << fix(10) << N << endl;
-}
 
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
-
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
-    }
+    cout << mod(N, 998244353) << endl;
 }

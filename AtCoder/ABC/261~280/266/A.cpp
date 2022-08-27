@@ -28,24 +28,14 @@ ll lcm(ll x, ll y) { return ll(x / gcd(x, y)) * y; }
 ll nCk(ll N, ll K) { if (K < 0 || N < K) return 0; ll ans = 1; for (ll i = 1; i <= K; i++) { ans *= N--; ans /= i; } return ans; }
 template <class T> bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
 template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
-inline auto mod(auto x, auto r) { return (x % r + r) % r; }
 
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
-}
+    string S;
+    cin >> S;
 
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
+    int l = S.size();
 
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
-    }
+    cout << S[(l + 1) / 2 - 1] << endl;
 }
