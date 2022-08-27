@@ -32,19 +32,10 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
-}
+    char X, Y;
+    cin >> X >> Y;
 
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
-
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
-    }
+    if (X == Y) cout << '=' << endl;
+    else if (X > Y) cout << '>' << endl;
+    else cout << '<' << endl;
 }
