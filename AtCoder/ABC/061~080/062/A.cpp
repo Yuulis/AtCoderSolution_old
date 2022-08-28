@@ -33,19 +33,10 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
-}
+    int x, y;
+    cin >> x >> y;
 
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
-
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
-    }
+    vector<int> group = { 0, 1, 3, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1 };
+    if (group[x] == group[y]) cout << "Yes" << endl;
+    else cout << "No" << endl;
 }

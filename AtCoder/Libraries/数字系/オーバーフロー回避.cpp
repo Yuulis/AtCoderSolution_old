@@ -22,8 +22,8 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 
 // ======================================== //
 
-// a * b^3 ‚ªlong long‚ÉŽû‚Ü‚ç‚È‚¢‚Æ‚«
-// 4e18‚ÍintŒ^‚ÌãŒÀ
+// a * b^3 ï¿½ï¿½long longï¿½ÉŽï¿½ï¿½Ü‚ï¿½È‚ï¿½ï¿½Æ‚ï¿½
+// 4e18ï¿½ï¿½intï¿½^ï¿½Ìï¿½ï¿½
 
 ll ClampToInt(ll a, ll b) {
     double estimate = 1;

@@ -7,7 +7,7 @@ int main() {
     int A, B;
     cin >> A >> B;
 
-    // •‰”‚ğŠÜ‚Şê‡
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚Şê‡
     int C = A / B - (A % B < 0);
 
     // cf. https://atcoder.jp/contests/abc239/editorial/3390 

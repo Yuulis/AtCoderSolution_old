@@ -33,19 +33,15 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
-}
+    char a, b;
+    cin >> a >> b;
 
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
-
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
+    if (a == 'H') {
+        if (b == 'H') cout << 'H' << endl;
+        else cout << 'D' << endl;
+    }
+    else {
+        if (b == 'H') cout << 'D' << endl;
+        else cout << 'H' << endl;
     }
 }
