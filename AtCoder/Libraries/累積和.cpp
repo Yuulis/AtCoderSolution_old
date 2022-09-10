@@ -7,7 +7,6 @@ int main() {
     vector<int> A(N);
     for (int i = 0; i < N; i++) cin >> A[i];
 
-
     vector<int> s(N + 1, 0);
     for (int i = 0; i < N; i++) s[i + 1] = s[i] + A[i];
 
