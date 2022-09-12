@@ -33,12 +33,8 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int S, A, B;
-    cin >> S >> A >> B;
+    int A, B;
+    cin >> A >> B;
 
-    int ans = 0;
-    if (A >= S) ans = 250;
-    else ans = 250 + ceil((S - A), B) * 100;
-
-    cout << ans << endl;
+    cout << (((A + B) % 12 == 0) ? 12 : mod(A + B, 12)) << endl;
 }

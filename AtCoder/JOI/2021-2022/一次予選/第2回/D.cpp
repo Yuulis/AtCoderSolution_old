@@ -33,17 +33,26 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N, M;
-    cin >> N >> M;
-    vector<int> num_of_box(N + 1);
-    iota(all(num_of_box), 0);
-
-    rep(i, 0, M) {
-        int x, y;
-        cin >> x >> y;
-
-        num_of_box[x] = y;
+    int N;
+    cin >> N;
+    vector<int> cnt(2010, 0);
+    rep(i, 0, N) {
+        int a;
+        cin >> a;
+        cnt[a]++;
     }
 
-    rep(i, 1, N + 1) cout << num_of_box[i] << endl;
+    int temp = INF;
+    int ans = INF;
+    rep(i, 0, 2010) {
+        if (cnt[i] != 0) {
+            if (temp > cnt[i]) {
+                temp = cnt[i];
+                ans = i;
+            }
+            else if (temp == cnt[i] && ans > i) ans = i;
+        }
+    }
+
+    cout << ans << endl;
 }

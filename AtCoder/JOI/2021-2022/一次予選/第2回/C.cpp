@@ -33,16 +33,11 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N, K;
+    int N;
     string S;
-    cin >> N >> K >> S;
+    cin >> N >> S;
 
-    int red = 0, white = 0;
-    rep(i, 0, N) {
-        if (S[i] == 'R') red++;
-        else white++;
+    rep(i, 0, N - 1) {
+        if (S[i + 1] == 'J') cout << S[i] << endl;
     }
-
-    if (K == red) cout << 'W' << endl;
-    else cout << 'R' << endl;
 }

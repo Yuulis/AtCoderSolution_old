@@ -33,8 +33,7 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int A, B;
-    cin >> A >> B;
-
-    cout << B - A << endl;
+    int X;
+    cin >> X;
+    cout << X * X * X << endl;
 }
