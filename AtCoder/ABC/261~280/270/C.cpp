@@ -34,20 +34,58 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 
 // ======================================== //
 
-int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
+// dijkstra法
+vector<int> dijkstra(Graph graph, int n, int start, int INF, vector<int>& prev) {
+    priority_queue<Pair, vector<Pair>, greater<Pair>> que;
+    vector<int> dist(n, INF);
+    dist[start] = 0;
+    que.push(make_pair(0, start));
+    while (que.size()) {
+        int d = que.top().first;
+        int u = que.top().second;
+        que.pop();
+        if (dist[u] < d) continue;
+        rep(i, 0, graph[u].size()) {
+            int v = graph[u][i].to;
+            int cost = graph[u][i].cost;
+            if (dist[v] > d + cost) {
+                dist[v] = d + cost;
+                que.push(make_pair(dist[v], v));
+                prev[v] = u;
+            }
+        }
+    }
+    return dist;
 }
 
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
+// 経路復元
+vector<int> get_path(vector<int> prev, int start, int goal) {
+    vector<int> path;
+    for (int t = goal; t != -1; t = prev[t]) path.push_back(t);
+    reverse(path.begin(), path.end());
+    return path;
+}
 
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
+int main() {
+    int N, X, Y;
+    cin >> N >> X >> Y;
+    X--;
+    Y--;
+    Graph G(N);
+    rep(i, 0, N - 1) {
+        int u, v;
+        cin >> u >> v;
+        u--;
+        v--;
+        G[u].push_back(Edge{ v, 1 });
+        G[v].push_back(Edge{ u, 1 });
+    }
+
+    vector<int> prev(N, -1);
+    vector<int> dst = dijkstra(G, N, X, INF, prev);
+    vector<int> ans = get_path(prev, X, Y);
+    rep(i, 0, ans.size()) {
+        if (i == 0) cout << ans[i] + 1;
+        else cout << " " << ans[i] + 1;
     }
 }

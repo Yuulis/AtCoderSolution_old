@@ -16,9 +16,7 @@ using ll = long long;
 using lld = long double;
 using mint = modint1000000007;
 // using mint = modint998244353;
-struct Edge { int to; int cost; };
 using Pair = pair<int, int>;
-using Graph = vector<vector<Edge>>;
 
 mt19937 mt{ random_device{}() };
 uniform_int_distribution<int> rd(0, 3);
@@ -35,19 +33,34 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
-}
+    int A, B;
+    cin >> A >> B;
 
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
+    vector<int> v(3, 0);
+    if (A == 1) v[0]++;
+    if (A == 2) v[1]++;
+    if (A == 3) { v[0]++; v[1]++; }
+    if (A == 4) v[2]++;
+    if (A == 5) { v[0]++; v[2]++; }
+    if (A == 6) { v[1]++; v[2]++; }
+    if (A == 7) { v[0]++; v[1]++; v[2]++; }
 
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
+    if (B == 1) v[0]++;
+    if (B == 2) v[1]++;
+    if (B == 3) { v[0]++; v[1]++; }
+    if (B == 4) v[2]++;
+    if (B == 5) { v[0]++; v[2]++; }
+    if (B == 6) { v[1]++; v[2]++; }
+    if (B == 7) { v[0]++; v[1]++; v[2]++; }
+
+    int ans = 0;
+    rep(i, 0, 3) {
+        if (v[i] != 0) {
+            if (i == 0) ans += 1;
+            if (i == 1) ans += 2;
+            if (i == 2) ans += 4;
+        }
     }
+
+    cout << ans << endl;
 }

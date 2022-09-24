@@ -16,9 +16,7 @@ using ll = long long;
 using lld = long double;
 using mint = modint1000000007;
 // using mint = modint998244353;
-struct Edge { int to; int cost; };
 using Pair = pair<int, int>;
-using Graph = vector<vector<Edge>>;
 
 mt19937 mt{ random_device{}() };
 uniform_int_distribution<int> rd(0, 3);
@@ -35,19 +33,27 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
-}
+    int X, Y, Z;
+    cin >> X >> Y >> Z;
 
-vector<vector<ll>> v;
-v.resize(N);
-for (int i = 0; i < N; i++) {
-    ll L;
-    cin >> L;
-
-    v[i].resize(L);
-    for (int j = 0; j < L; j++) {
-        cin >> v[i][j];
+    if (X > 0) {
+        if (X < Y || Y < 0) cout << X << endl;
+        else {
+            if (Y < Z) cout << -1 << endl;
+            else {
+                if (0 < Z) cout << X << endl;
+                else cout << abs(Z) * 2 + X << endl;
+            }
+        }
+    }
+    else {
+        if (Y < X || Y > 0) cout << abs(X) << endl;
+        else {
+            if (Z < Y) cout << -1 << endl;
+            else {
+                if (Z < 0) cout << abs(X) << endl;
+                else cout << Z * 2 + abs(X) << endl;
+            }
+        }
     }
 }
