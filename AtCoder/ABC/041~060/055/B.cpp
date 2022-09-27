@@ -35,23 +35,11 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N, M;
-    cin >> N >> M;
-    vector<string> A(N), B(M);
-    rep(i, 0, N) cin >> A[i];
-    rep(i, 0, M) cin >> B[i];
+    int N;
+    cin >> N;
 
-    rep(di, 0, N - M + 1) rep(dj, 0, N - M + 1) {
-        bool flag = true;
-        rep(i, 0, M) rep(j, 0, M) {
-            if (A[di + i][dj + j] != B[i][j]) flag = false;
-        }
+    mint ans = 1;
+    rep(i, 1, N + 1) ans *= i;
 
-        if (flag) {
-            cout << "Yes" << endl;
-            return 0;
-        }
-    }
-
-    cout << "No" << endl;
+    cout << ans.val() << endl;
 }
