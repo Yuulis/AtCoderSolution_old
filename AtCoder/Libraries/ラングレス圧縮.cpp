@@ -1,15 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void rls(string s, vector<pair<char, int>>& v) {
-    int cnt = 1;
-    for (int i = 0; i < s.size(); i++)
-    {
-        if (s[i] != s[i - 1]) {
-            v.push_back(make_pair(s[i - 1], cnt));
-            cnt = 0;
-        }
-        cnt++;
+// 圧縮
+vector<pair<char, int>> rls_encode(const string& str) {
+    int n = str.size();
+    vector<pair<char, int>> ret;
+    for (int l = 0; l < n;) {
+        int r = l + 1;
+        for (; r < n && str[l] == str[r]; r++) {};
+        ret.push_back({ str[l], r - l });
+        l = r;
     }
-    v.push_back(make_pair(s.back(), cnt));
+    return ret;
+}
+
+// 復元
+string rls_decode(const vector<pair<char, int>>& code) {
+    string ret = "";
+    for (auto p : code) {
+        for (int i = 0; i < p.second; i++) {
+            ret.push_back(p.first);
+        }
+    }
+    return ret;
 }
