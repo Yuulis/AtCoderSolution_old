@@ -3,6 +3,8 @@
 *.filters
 *.user
 
+.claudiaideconfig
+
 .vs/
 Debug/
 
