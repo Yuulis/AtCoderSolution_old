@@ -35,19 +35,20 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
-}
+    ll X, K;
+    cin >> X >> K;
 
-vector<vector<ll>> v;
-v.resize(N);
-rep(i, 0, N) {
-    ll L;
-    cin >> L;
+    ll MOD = 1;
+    rep(i, 0, K) {
+        X /= MOD;
 
-    v[i].resize(L);
-    rep(j, 0, L) {
-        cin >> v[i][j];
+        ll a = X % 10;
+        if (a <= 4) X -= a;
+        else X += 10 - a;
+
+        X *= MOD;
+        MOD *= 10;
     }
+
+    cout << X << endl;
 }
