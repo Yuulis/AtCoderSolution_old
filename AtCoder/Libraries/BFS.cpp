@@ -48,8 +48,8 @@ int main() {
 
     vector<vector<int>> dist(W, vector<int>(H, -1));
     queue<Node> que;
-    dist[0][0] = 0;
     que.push(Node(0, 0));
+    dist[0][0] = 0;
 
     while (!que.empty()) {
         Node p = que.front();
