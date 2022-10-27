@@ -36,19 +36,25 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
-
-    vector<vector<ll>> v;
-    v.resize(N);
+    ll N, M;
+    cin >> N >> M;
+    vector<Pair_ll> pair(N);
     rep(i, 0, N) {
-        ll L;
-        cin >> L;
-
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
-        }
+        ll a, b;
+        cin >> a >> b;
+        pair[i] = make_pair(a, b);
     }
+
+    sort(all(pair));
+
+    ll ans = 0, cnt = 0;
+    rep(i, 0, N) {
+        ll buy = min(pair[i].second, M - cnt);
+        cnt += buy;
+        ans += buy * pair[i].first;
+
+        if (cnt >= M) break;
+    }
+
+    cout << ans << endl;
 }
