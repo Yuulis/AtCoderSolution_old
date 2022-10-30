@@ -23,7 +23,7 @@ using Graph = vector<vector<Edge>>;
 
 random_device rd;
 default_random_engine eng(rd());
-uniform_int_distribution<ll> range(-10000, 10000);
+uniform_int_distribution<ll> range(0, 3);
 
 ll ceil(ll a, ll b) { if (a % b == 0) return a / b; return (a / b) + 1; }
 mint modPow(ll x, ll n) { mint ans = 1; for (ll i = 0; i < n; i++) ans *= x; return ans; }
@@ -37,19 +37,16 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
+    vector<int> f(100);
+    rep(i, 0, 100) cin >> f[i];
 
-    vector<vector<ll>> v;
-    v.resize(N);
-    rep(i, 0, N) {
-        ll L;
-        cin >> L;
+    vector<char> dir = { 'F', 'B', 'L', 'R' };
 
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
-        }
+    rep(i, 0, 100) {
+        int pos;
+        cin >> pos;
+
+        cout << dir[range(eng)] << endl;
+        cout << flush;
     }
 }

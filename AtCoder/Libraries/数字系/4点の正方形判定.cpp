@@ -21,9 +21,8 @@ using Pair_int = pair<int, int>;
 using Pair_ll = pair<ll, ll>;
 using Graph = vector<vector<Edge>>;
 
-random_device rd;
-default_random_engine eng(rd());
-uniform_int_distribution<ll> range(-10000, 10000);
+mt19937 mt{ random_device{}() };
+uniform_int_distribution<int> rd(0, 3);
 
 ll ceil(ll a, ll b) { if (a % b == 0) return a / b; return (a / b) + 1; }
 mint modPow(ll x, ll n) { mint ans = 1; for (ll i = 0; i < n; i++) ans *= x; return ans; }
@@ -36,20 +35,14 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 
 // ======================================== //
 
-int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
-
-    vector<vector<ll>> v;
-    v.resize(N);
-    rep(i, 0, N) {
-        ll L;
-        cin >> L;
-
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
-        }
+bool check(vector<int>& x, vector<int>& y) {
+    vector<int> v;
+    rep(i, 0, 4)rep(j, i + 1, 4) {
+        int dx = x[i] - x[j], dy = y[i] - y[j];
+        v.push_back(dx * dx + dy * dy);
     }
+    sort(all(v));
+    int l = v[0];
+    if (l == 0) return false;
+    return v[0] == l && v[1] == l && v[2] == l && v[3] == l && v[4] == l * 2 && v[5] == l * 2;
 }

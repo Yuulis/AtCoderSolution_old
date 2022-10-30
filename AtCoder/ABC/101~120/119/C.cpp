@@ -35,21 +35,52 @@ template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; 
 template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) % r; }
 
 // ======================================== //
+int N, A, B, C;
+int ans = INF;
+vector<int> L;
+vector<int> flag(8);
+
+void dfs(int x) {
+    if (x == N) {
+        int a = 0, b = 0, c = 0;
+        int cnt_a = 0, cnt_b = 0, cnt_c = 0;
+        rep(i, 0, N) {
+            if (flag[i] == 0) {
+                a += L[i];
+                cnt_a++;
+            }
+            if (flag[i] == 1) {
+                b += L[i];
+                cnt_b++;
+            }
+            if (flag[i] == 2) {
+                c += L[i];
+                cnt_c++;
+            }
+        }
+
+        if (cnt_a == 0 || cnt_b == 0 || cnt_c == 0) return;
+
+        int mp = (cnt_a - 1) * 10 + (cnt_b - 1) * 10 + (cnt_c - 1) * 10;
+        mp += abs(A - a) + abs(B - b) + abs(C - c);
+        chmin(ans, mp);
+
+        return;
+    }
+
+    rep(i, 0, 4) {
+        flag[x] = i;
+        dfs(x + 1);
+    }
+}
+
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
+    cin >> N >> A >> B >> C;
+    L.resize(N);
+    rep(i, 0, N) cin >> L[i];
 
-    vector<vector<ll>> v;
-    v.resize(N);
-    rep(i, 0, N) {
-        ll L;
-        cin >> L;
+    dfs(0);
 
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
-        }
-    }
+    cout << ans << endl;
 }

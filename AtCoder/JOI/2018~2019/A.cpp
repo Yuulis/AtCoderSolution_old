@@ -17,13 +17,11 @@ using lld = long double;
 using mint = modint1000000007;
 // using mint = modint998244353;
 struct Edge { int to; int cost; };
-using Pair_int = pair<int, int>;
-using Pair_ll = pair<ll, ll>;
+using Pair = pair<int, int>;
 using Graph = vector<vector<Edge>>;
 
-random_device rd;
-default_random_engine eng(rd());
-uniform_int_distribution<ll> range(-10000, 10000);
+mt19937 mt{ random_device{}() };
+uniform_int_distribution<int> rd(0, 3);
 
 ll ceil(ll a, ll b) { if (a % b == 0) return a / b; return (a / b) + 1; }
 mint modPow(ll x, ll n) { mint ans = 1; for (ll i = 0; i < n; i++) ans *= x; return ans; }
@@ -37,19 +35,18 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
+    int A, B, C;
+    cin >> A >> B >> C;
 
-    vector<vector<ll>> v;
-    v.resize(N);
-    rep(i, 0, N) {
-        ll L;
-        cin >> L;
+    int ans = 0;
+    int coins = 0;
+    while (coins < C)
+    {
+        ans++;
+        coins += A;
 
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
-        }
+        if (ans % 7 == 0) coins += B;
     }
+
+    cout << ans << endl;
 }
