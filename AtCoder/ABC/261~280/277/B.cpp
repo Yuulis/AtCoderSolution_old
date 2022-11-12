@@ -33,20 +33,25 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 
 // ======================================== //
 
+vector<char> c1 = { 'H', 'D', 'C', 'S' };
+vector<char> c2 = { 'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K' };
+
 int main() {
     int N;
     cin >> N;
-    cout << fix(10) << N << endl;
-
-    vector<vector<ll>> v;
-    v.resize(N);
+    map<string, int> mp;
     rep(i, 0, N) {
-        ll L;
-        cin >> L;
+        string S;
+        cin >> S;
 
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
+        if (find(all(c1), S[0]) == c1.end() || find(all(c2), S[1]) == c2.end()) {
+            cout << "No" << endl;
+            return 0;
         }
+
+        mp[S]++;
     }
+
+    if (mp.size() != N) cout << "No" << endl;
+    else cout << "Yes" << endl;
 }

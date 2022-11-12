@@ -33,20 +33,32 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 
 // ======================================== //
 
+map<ll, bool> seen;
+ll ans = 0;
+void dfs(unordered_map<ll, vector<ll>>& G, ll v) {
+    seen[v] = true;
+    chmax(ans, v);
+
+    for (auto next_v : G[v]) {
+        if (seen[next_v]) continue;
+        dfs(G, next_v);
+    }
+
+    return;
+}
+
 int main() {
     int N;
     cin >> N;
-    cout << fix(10) << N << endl;
-
-    vector<vector<ll>> v;
-    v.resize(N);
+    unordered_map<ll, vector<ll>> G;
     rep(i, 0, N) {
-        ll L;
-        cin >> L;
-
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
-        }
+        ll A, B;
+        cin >> A >> B;
+        G[A].push_back(B);
+        G[B].push_back(A);
     }
+
+    dfs(G, 1);
+
+    cout << ans << endl;
 }

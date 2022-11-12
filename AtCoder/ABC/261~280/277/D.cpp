@@ -34,19 +34,46 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
-
-    vector<vector<ll>> v;
-    v.resize(N);
+    ll N, M;
+    cin >> N >> M;
+    map<ll, ll> mp;
+    ll sum = 0;
     rep(i, 0, N) {
-        ll L;
-        cin >> L;
-
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
-        }
+        ll A;
+        cin >> A;
+        mp[A]++;
+        sum += A;
     }
+
+    vector<Pair_ll> v;
+    for (auto& p : mp)
+    {
+        v.push_back(p);
+    }
+
+    int k = v.size();
+    if (k == M) {
+        cout << 0 << endl;
+        return 0;
+    }
+
+    int p = 0;
+    rep(i, 0, v.size()) if (v[(i + 1) % k].first != (v[i].first + 1) % M) {
+        p = i;
+        break;
+    }
+
+    vector<ll> s(N + 1);
+    rep(i, 0, k) {
+        int j = (p - i + k) % k;
+        s[j] = sum;
+
+        if (v[(j + 1) % k].first == (v[j].first + 1) % M) s[j] = s[(j + 1) % k];
+        s[j] -= v[j].first * v[j].second;
+    }
+
+    ll ans = sum;
+    rep(i, 0, k) chmin(ans, s[i]);
+
+    cout << ans << endl;
 }
