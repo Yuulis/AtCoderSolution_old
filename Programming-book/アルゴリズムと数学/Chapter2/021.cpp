@@ -25,7 +25,7 @@ ll ceil(ll a, ll b) { if (a % b == 0) return a / b; return (a / b) + 1; }
 mint modPow(ll x, ll n) { mint ans = 1; for (ll i = 0; i < n; i++) ans *= x; return ans; }
 ll gcd(ll x, ll y) { if (x < y) swap(x, y); ll r; while (y > 0) { r = x % y; x = y; y = r; } return x; }
 ll lcm(ll x, ll y) { return ll(x / gcd(x, y)) * y; }
-ll nCk(ll n, ll r) { if (r < 0 || n < r) return 0; ll ans = 1; for (ll i = 1; i <= r; i++) { ans *= n--; ans /= i; } return ans; }
+ll nCr(ll n, ll r) { if (r < 0 || n < r) return 0; ll ans = 1; for (ll i = 1; i <= r; i++) { ans *= n--; ans /= i; } return ans; }
 int get_rand(int seed, int min, int max) { static mt19937_64 mt64(seed); uniform_int_distribution<int> get_rand_int(min, max); return get_rand_int(mt64); }
 template <class T> bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
 template <class T> bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
@@ -34,19 +34,8 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
+    int n, r;
+    cin >> n >> r;
 
-    vector<vector<ll>> v;
-    v.resize(N);
-    rep(i, 0, N) {
-        ll L;
-        cin >> L;
-
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
-        }
-    }
+    cout << nCr(n, r) << endl;
 }
