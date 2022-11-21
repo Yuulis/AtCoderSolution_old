@@ -21,6 +21,6 @@ int main() {
     }
 
     // 累積和計算
-    vector<int> cs(N + 2, 0);
-    rep(i, 0, N + 2) cs[i + 1] = cs[i] + v[i];
+    vector<int> cs(N + 1, 0);
+    rep(i, 0, N) cs[i + 1] = cs[i] + v[i];
 }
