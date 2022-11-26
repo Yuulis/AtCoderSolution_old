@@ -3,8 +3,8 @@
 
 #define all(x) (x).begin(), (x).end()
 #define fix(x) fixed << setprecision(x)
-#define rep(i,start,end) for(ll i=(start);i<(ll)(end);i++)
-#define rrep(i,start,end) for(ll i=((ll)(start));i>=(end);i--)
+#define rep(i,start,end) for(int i=(start);i<(int)(end);i++)
+#define rrep(i,start,end) for(int i=((int)(start));i>=(end);i--)
 
 constexpr auto PI = 3.14159265358979;
 constexpr auto INF = 1e+9;
@@ -34,19 +34,20 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
+    int H, W;
+    cin >> H >> W;
+    vector<string> S(H), T(H);
+    rep(i, 0, H) cin >> S[i];
+    rep(i, 0, H) cin >> T[i];
 
-    vector<vector<ll>> v;
-    v.resize(N);
-    rep(i, 0, N) {
-        ll L;
-        cin >> L;
-
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
+    rep(i, 0, H) {
+        int s = count(all(S[i]), '#');
+        int h = count(all(T[i]), '#');
+        if (s != h) {
+            cout << "No" << endl;
+            return 0;
         }
     }
+
+    cout << "Yes" << endl;
 }

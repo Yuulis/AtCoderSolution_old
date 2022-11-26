@@ -34,19 +34,26 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
+    ll A, B;
+    cin >> A >> B;
 
-    vector<vector<ll>> v;
-    v.resize(N);
-    rep(i, 0, N) {
-        ll L;
-        cin >> L;
+    auto f = [&](ll x) {
+        return (double)A / sqrt(x + 1) + (double)B * x;
+    };
 
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
-        }
+    ll l = 0, r = A / B;
+    while (r - l > 2)
+    {
+        ll c1 = (l * 2 + r) / 3;
+        ll c2 = (l + r * 2) / 3;
+        if (f(c1) > f(c2)) l = c1;
+        else r = c2;
     }
+
+    double ans = A;
+    rep(i, l, r + 1) {
+        ans = min(ans, f(i));
+    }
+
+    cout << fix(10) << ans << endl;
 }
