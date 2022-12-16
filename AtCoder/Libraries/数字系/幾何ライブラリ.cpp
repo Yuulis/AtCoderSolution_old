@@ -1,78 +1,306 @@
 #include <bits/stdc++.h>
+#include <cassert>
 
-using namespace std;
-using lld = long double;
+namespace geometry2d {
 
-class Point {
-private:
+	// 浮動小数点誤差
+	const double EPS = 1e-10;
 
-public:
-    lld x, y;
+	// aの正負判定(EPS考慮)
+	int sgn(const double a) {
+		return (a < -EPS ? -1 : (a > EPS ? +1 : 0));
+	}
 
-    Point() {
-        x = 0;
-        y = 0;
-    }
+	// ２次元ベクトル
+	struct Point {
+		double x, y;
+		Point(double _x, double _y) {
+			x = _x, y = _y;
+		}
+		Point() {
+			x = 0, y = 0;
+		}
 
-    Point(lld _x, lld _y) {
-        x = _x;
-        y = _y;
-    }
-};
+		// 演算
+		Point operator+() const {
+			return *this;
+		}
+		Point operator-() const {
+			return{ -x, -y };
+		}
+		Point operator+ (const Point& b) const {
+			return{ x + b.x, y + b.y };
+		}
+		Point operator- (const Point& b) const {
+			return{ x - b.x, y - b.y };
+		}
+		Point operator* (const double b) const {
+			return{ x * b, y * b };
+		}
+		Point operator/ (const double b) const {
+			return{ x / b, y / b };
+		}
+		Point operator+= (const Point& b) {
+			x += b.x, y += b.y;
+			return *this;
+		}
+		Point operator-= (const Point& b) {
+			x -= b.x, y -= b.y;
+			return *this;
+		}
+		Point operator*= (const double b) {
+			x *= b, y *= b;
+			return *this;
+		}
+		Point operator/= (const double b) {
+			x /= b, y /= b;
+			return *this;
+		}
+		bool operator== (const Point& b) {
+			return b.x == x && b.y == y;
+		}
 
-class Vec2 {
-private:
+		// ベクトルの長さ
+		double length() const {
+			return std::sqrt(x * x + y * y);
+		}
 
-public:
-    lld x, y;
+		// 内積
+		double dot(const Point& b) const {
+			return x * b.x + y * b.y;
+		}
 
-    Vec2() {
-        x = 0,
-            y = 0;
-    }
+		// 外積
+		double cross(const Point& b) const {
+			return x * b.y - y * b.x;
+		}
 
-    Vec2(const Point& p1, const Point& p2) {
-        x = p2.x - p1.x;
-        y = p2.y - p1.y;
-    }
+		// 2ベクトルの距離
+		double distanceFrom(const Point& b) const {
+			return std::sqrt((x - b.x) * (x - b.x) + (y - b.y) * (y - b.y));
+		}
 
-    lld length() {
-        return sqrt(x * x + y * y);
-    }
+		// 単位ベクトル化
+		Point normalized() const {
+			return{ x / length(), y / length() };
+		}
 
-    lld dot(Vec2& v) {
-        return x * v.x + y * v.y;
-    }
+		// ゼロベクトル判定
+		bool isZero() const {
+			return sgn(x) == 0 && sgn(y) == 0;
+		}
 
-    lld cross(Vec2& v) {
-        return x * v.y - y * v.x;
-    }
-};
+		// 単位法線ベクトル
+		Point normalUnitVector() const {
+			return{ -normalized().y, normalized().x };
+		}
+		// 原点中心にarg(弧度法)回転した座標
+		Point rotation(double arg) const {
+			double cs = cos(arg), sn = sin(arg);
+			return Point(x * cs - y * sn, x * sn + y * cs);
+		}
+		// 原点中心の円上にあるとしたときの偏角
+		double angle() const {
+			return atan2(y, x);
+		}
+	};
 
-class Circle
-{
-public:
-    Point p;
-    lld r;
+	// 2項演算
+	inline Point operator*(double a, const Point& b) {
+		return{ b.x * a, b.y * a };
+	}
 
-    Circle() = default;
+	// 入出力
+	template <class Char>
+	inline std::basic_ostream<Char>& operator <<(std::basic_ostream<Char>& os, const Point& v)
+	{
+		return os << Char('(') << v.x << Char(',') << v.y << Char(')');
+	}
+	template <class Char>
+	inline std::basic_istream<Char>& operator >> (std::basic_istream<Char>& is, Point& v)
+	{
+		return is >> v.x >> v.y;
+	}
 
-    Circle(Point _p, lld _r) {
-        p = _p;
-        r = _r;
-    }
+	// 解なし時の点の座標
+	const Point error_val = { 114514.0, -191981.0 };
 
-    int isIntersect(const Circle& c1) {
-        Vec2 v = Vec2(p, c1.p);
-        lld d = v.length();
+	// 比較演算
+	inline bool operator==(const Point& a, const Point& b) {
+		return (sgn(a.x - b.x) == 0 && sgn(a.y - b.y) == 0);
+	}
+	inline bool operator!=(const Point& a, const Point& b) {
+		return !(a == b);
+	}
 
-        if (d < abs(r - c1.r)) return 1;  // 内包
-        else if (d == abs(r - c1.r)) return 2;  // 内接
-        else if (abs(r - c1.r) < d && d < r + c1.r) return 3;  // 交差
-        else if (d == r + c1.r) return 4;  // 外接
-        else return 5;  // 接しない
-    }
+	// `x,yの順に昇順ソートする
+	inline bool operator<(const Point& a, const Point& b) {
+		if (sgn(a.x - b.x) != 0)return sgn(a.x - b.x) < 0;
+		else return sgn(a.y - b.y) < 0;
+	}
 
-private:
+	/*3点の位置関係
+	* ABから見てBCは左に曲がるのなら +1
+	* ABから見てBCは右に曲がるのなら -1
+	* ABC(CBA)の順番で一直線上に並ぶなら +2
+	* ACB(BCA)の順番で一直線上に並ぶなら 0
+	* BAC(CAB)の順番で一直線上に並ぶなら -2
+	*/
+	int iSP(const Point& a, const Point& b, const Point& c) {
+		int flg = sgn((b - a).cross(c - a));
+		if (flg == 1) {
+			return +1;
+		}
+		else if (flg == -1) {
+			return -1;
+		}
+		else {
+			if (sgn((b - a).dot(c - b)) > 0)
+				return +2;
+			else if (sgn((a - b).dot(c - a)) > 0)
+				return -2;
+			//ACB(BCA)　CがA or Bと一致しても、ここに含まれる。
+			else
+				return 0;
+		}
+	}
 
-};
+	/*角の形状
+	* 角ABCが鋭角なら0、直角なら1、鈍角なら2
+	*/
+	int angletype(const Point& a, const Point& b, const Point& c) {
+		auto v = (a - b).dot(c - b);
+		if (sgn(v) > 0)return 0;
+		else if (sgn(v) == 0)return 1;
+		else return 2;
+	}
+
+	// 直線
+	struct Line {
+
+		Point begin, end;
+
+		// デフォルトコンストラクタ
+		Line() {
+			begin = Point(), end = Point();
+		}
+
+		// 2点指定
+		Line(const Point& b, const Point& e) {
+			begin = b, end = e;
+		}
+
+		// ax+by+c=0 指定
+		Line(const double a, const double b, const double c) {
+			if (sgn(a) == 0 && sgn(b) == 0) {
+				assert(-1);
+			}
+
+			if (sgn(b) == 0) {
+				// ax+c=0
+				begin = Point(-c / a, 0.0);
+				end = Point(-c / a, 1.0);
+			}
+			else {
+				// y=-(ax+c)/b　傾きは-a/bで、y切片が-c/b
+				begin = Point(0, -c / b);
+				end = Point(1.0, -(a + c) / b);
+			}
+		}
+
+		// 直線のベクトル化
+		Point vec() const {
+			return end - begin;
+		}
+
+		Point countervec() const {
+			return begin - end;
+		}
+
+	};
+
+	//半直線
+	typedef Line Ray;
+
+	//線分
+	typedef Line Segment;
+
+
+	// 直線の交点を返す。交わっていなければ、error_valを返す。
+	Point lineIntersection(const Line& l1, const Line& l2) {
+		if (sgn(l1.vec().cross(l2.vec())) == 0)return error_val;
+
+		Point ret;
+		ret = l1.begin + l1.vec() *
+			abs((l2.end - l1.begin).cross(l2.vec()) / l1.vec().cross(l2.vec()));
+		return ret;
+	}
+
+	/*線分が共通部分を持つかの判定と線分の交点
+	* 共通部分がない、もしくは交点が一意ではないなら、error_valを返す。
+	* trueなら共通部分を持つ。falseなら共通部分を持たない。
+	*/
+	std::pair<bool, Point> segmentIntersection(const Segment& s1, const Segment& s2) {
+
+		if (iSP(s1.begin, s1.end, s2.begin) * iSP(s1.begin, s1.end, s2.end) <= 0 &&
+			iSP(s2.begin, s2.end, s1.begin) * iSP(s2.begin, s2.end, s1.end) <= 0) {
+
+			// 平行のとき
+			if (s1.vec().cross(s2.vec()) == 0)
+				return std::make_pair(true, error_val);
+			else
+				return std::make_pair(true, lineIntersection(s1, s2));
+
+		}
+		return std::make_pair(false, error_val);
+	}
+
+
+	// 点と直線の距離
+	double distanceBetweenPointAndLine(const Point& p, const Line& l) {
+		return abs(l.vec().cross(p - l.begin) / l.vec().length());
+	}
+
+	// 点と半直線の距離
+	double distanceBetweenPointAndRay(const Point& p, const Ray& r) {
+		//始点との距離のパターン
+		if (sgn((p - r.begin).dot(r.vec())) < 0)
+			return r.begin.distanceFrom(p);
+		return abs(r.vec().cross(p - r.begin) / r.vec().length());
+	}
+
+	// 点と線分の距離
+	double distanceBetweenPointAndSegment(const Point& p, const Segment& s) {
+		if (sgn(s.vec().dot(p - s.begin)) < 0 || sgn(s.countervec().dot(p - s.end)) < 0) {
+			//下した垂線は線分の上にはない
+			return std::min(p.distanceFrom(s.begin), p.distanceFrom(s.end));
+		}
+		return distanceBetweenPointAndLine(p, s);
+	}
+
+	// 二線分間の距離
+	double distanceBetweenSegmentAndSegment(const Segment& s1, const Segment& s2) {
+		if (segmentIntersection(s1, s2).first)return 0;
+
+		double ans = distanceBetweenPointAndSegment(s1.begin, s2);
+		ans = std::min(ans, distanceBetweenPointAndSegment(s1.end, s2));
+		ans = std::min(ans, distanceBetweenPointAndSegment(s2.begin, s1));
+		ans = std::min(ans, distanceBetweenPointAndSegment(s2.end, s1));
+		return ans;
+	}
+
+	//正射影ベクトル
+	Point projection(const Point& a, const Line& l) {
+		Point ret;
+		ret = l.begin +
+			l.vec().normalized() * (a - l.begin).dot(l.vec()) / l.vec().length();
+		return ret;
+	}
+
+	// 直線BCにおいて、Aと線対称な点
+	Point reflection(const Point& a, const Line& l) {
+		Point res;
+		res = a + 2 * (projection(a, l) - a);
+		return res;
+	}
+}
