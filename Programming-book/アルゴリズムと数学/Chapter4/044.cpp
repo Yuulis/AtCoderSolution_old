@@ -33,19 +33,34 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 // ======================================== //
 
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
+    int N, M;
+    cin >> N >> M;
+    Graph G(N);
+    rep(i, 0, M) {
+        int A, B;
+        cin >> A >> B;
+        A--;
+        B--;
+        G[A].push_back(B);
+        G[B].push_back(A);
+    }
 
-    vector<vector<ll>> v;
-    v.resize(N);
-    rep(i, 0, N) {
-        ll L;
-        cin >> L;
-
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
+    vector<int> dist(N, -1);
+    queue<int> que;
+    que.push(0);
+    dist[0] = 0;
+    while (!que.empty())
+    {
+        int p = que.front();
+        que.pop();
+        for (auto& np : G[p])
+        {
+            if (dist[np] == -1) {
+                dist[np] = dist[p] + 1;
+                que.push(np);
+            }
         }
     }
+
+    rep(i, 0, N) cout << dist[i] << endl;
 }

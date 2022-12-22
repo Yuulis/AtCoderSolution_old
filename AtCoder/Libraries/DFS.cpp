@@ -1,17 +1,23 @@
 #include <bits/stdc++.h>
 
+#define rep(i,start,end) for(ll i=(start);i<(ll)(end);i++)
+#define rrep(i,start,end) for(ll i=((ll)(start));i>=(end);i--)
+
 using namespace std;
+using ll = long long;
 using Graph = vector<vector<int>>;
 using Graphw = vector<vector<Edge>>;
 
+// ======================================== //
+
 // DFS再帰
-vector<bool> seen(3000);  // 頂点の数
+vector<bool> seen(3000);
 void dfs(const Graph &G, int v) {
     seen[v] = true;
 
-    for (auto next_v : G[v]) {
-        if (seen[next_v]) continue;
-        dfs(G, next_v);
+    for (auto nv : G[v]) {
+        if (seen[nv]) continue;
+        dfs(G, nv);
     }
 }
 
@@ -29,7 +35,7 @@ int main() {
 
     // 重みなし無向グラフ
     Graph G(N);
-    for (int i = 0; i < M; ++i) {
+    rep(i, 0, M) {
         int a, b;
         cin >> a >> b;
         G[a].push_back(b);
@@ -38,7 +44,7 @@ int main() {
 
     // 重みあり無向グラフ
     Graphw Gw(N);
-    for (int i = 0; i < M; i++)
+    rep(i, 0, M)
     {
         int from, to, weight;
         cin >> from >> to >> weight;

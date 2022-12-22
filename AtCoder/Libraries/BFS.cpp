@@ -1,77 +1,45 @@
 #include <bits/stdc++.h>
 
-#include <map>
-#include <unordered_set>
+#define rep(i,start,end) for(ll i=(start);i<(ll)(end);i++)
+#define rrep(i,start,end) for(ll i=((ll)(start));i>=(end);i--)
 
 using namespace std;
+using ll = long long;
+
 using Graph = vector<vector<int>>;
-
-typedef long long ll;
-
-#define INF 1e+9
-#define INFL 1LL << 60
-#define MOD 1000000007
-#define all(x) (x).begin(), (x).end()
-
-constexpr double PI = 3.14159265358979;
-
-template <class T>
-bool chmax(T &a, const T &b) {
-    if (a < b) {
-        a = b;
-        return 1;
-    }
-    return 0;
-}
-template <class T>
-bool chmin(T &a, const T &b) {
-    if (b < a) {
-        a = b;
-        return 1;
-    }
-    return 0;
-}
-
-using Node = pair<int, int>;
-const int dx[] = {1, 0};
-const int dy[] = {0, -1};
 
 // ======================================== //
 
 int main() {
-    int H, W;
-    cin >> H >> W;
-    vector<string> C(H);
-    for (int i = 0; i < H; i++) {
-        cin >> C[i];
+    int N, M;
+    cin >> N >> M;
+    Graph G(N);
+    rep(i, 0, M) {
+        int A, B;
+        cin >> A >> B;
+        A--;
+        B--;
+        G[A].push_back(B);
+        G[B].push_back(A);
     }
 
-    vector<vector<int>> dist(W, vector<int>(H, -1));
-    queue<Node> que;
-    que.push(Node(0, 0));
-    dist[0][0] = 0;
-
-    while (!que.empty()) {
-        Node p = que.front();
+    // 最短経路探索
+    vector<int> dist(N, -1);
+    queue<int> que;
+    que.push(0);
+    dist[0] = 0;
+    while (!que.empty())
+    {
+        int p = que.front();
         que.pop();
-
-        int x = p.first, y = p.second;
-        for (int i = 0; i < 2; i++) {
-            int x2 = x + dx[i];
-            int y2 = y + dy[i];
-
-            if (x2 < 0 || x2 >= H || y2 < 0 || y2 >= W || C[x2][y2] == '#') {
-                continue;
+        for (auto& np : G[p])
+        {
+            if (dist[np] == -1) {
+                dist[np] = dist[p] + 1;
+                que.push(np);
             }
-
-            if (dist[x2][y2] != -1) {
-                continue;
-            }
-
-            dist[x2][y2] = dist[x][y] + 1;
-            que.push(Node(x2, y2));
         }
     }
 
-    cout << dist[0][0] << endl;
+    rep(i, 0, N) cout << dist[i] << endl;
 }

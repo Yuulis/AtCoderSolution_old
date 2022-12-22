@@ -32,20 +32,35 @@ template <class T1, class T2> inline auto mod(T1 x, T2 r) { return (x % r + r) %
 
 // ======================================== //
 
-int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
+vector<bool> seen(101010);
+void dfs(const Graph& G, int v) {
+    seen[v] = true;
 
-    vector<vector<ll>> v;
-    v.resize(N);
-    rep(i, 0, N) {
-        ll L;
-        cin >> L;
-
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
-        }
+    for (auto next_v : G[v]) {
+        if (seen[next_v]) continue;
+        dfs(G, next_v);
     }
 }
+
+int main() {
+    int N, M;
+    cin >> N >> M;
+    Graph G(N);
+    rep(i, 0, M) {
+        int A, B;
+        cin >> A >> B;
+        A--;
+        B--;
+        G[A].push_back(B);
+        G[B].push_back(A);
+    }
+
+    dfs(G, 0);
+
+    rep(i, 0, N) if (!seen[i]) {
+        cout << " The graph is not connected." << endl;
+        return 0;
+    }
+
+    cout << "The graph is connected." << endl;
+} 
