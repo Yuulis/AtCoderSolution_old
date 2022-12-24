@@ -20,8 +20,6 @@ using Pair_int = pair<int, int>;
 using Pair_ll = pair<ll, ll>;
 using Grid = vector<string>;
 
-struct Edge { int to; int cost; };
-
 ll ceil(ll a, ll b) { if (a % b == 0) return a / b; return (a / b) + 1; }
 mint modPow(ll x, ll n) { mint ans = 1; for (ll i = 0; i < n; i++) ans *= x; return ans; }
 ll gcd(ll x, ll y) { if (x < y) swap(x, y); ll r; while (y > 0) { r = x % y; x = y; y = r; } return x; }
@@ -35,20 +33,40 @@ template <class T> using Graph = vector<vector<T>>;
 
 // ======================================== //
 
+const vector<int> dy = { 1, 0, -1, 0 };
+const vector<int> dx = { 0, 1, 0, -1 };
+
 int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
+    int R, C;
+    cin >> R >> C;
+    int sy, sx, gy, gx;
+    cin >> sy >> sx >> gy >> gx;
+    sy--; sx--; gy--; gx--;
+    Grid G(R);
+    rep(i, 0, R) cin >> G[i];
 
-    vector<vector<ll>> v;
-    v.resize(N);
-    rep(i, 0, N) {
-        ll L;
-        cin >> L;
+    vector<vector<int>> dist(R, vector<int>(C, -1));
+    queue<Pair_int> que;
+    dist[sy][sx] = 0;
+    que.push(make_pair(sy, sx));
+    while (!que.empty())
+    {
+        auto& p = que.front();
+        que.pop();
+        int y = p.first;
+        int x = p.second;
+        rep(i, 0, 4) {
+            int ny = y + dy[i];
+            int nx = x + dx[i];
 
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
+            if (nx < 0 || nx >= C || ny < 0 || ny >= R) continue;
+            if (G[ny][nx] == '#') continue;
+            if (dist[ny][nx] != -1) continue;
+
+            dist[ny][nx] = dist[y][x] + 1;
+            que.push(make_pair(ny, nx));
         }
     }
+
+    cout << dist[gy][gx] << endl;
 }

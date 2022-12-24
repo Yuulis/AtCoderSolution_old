@@ -20,8 +20,6 @@ using Pair_int = pair<int, int>;
 using Pair_ll = pair<ll, ll>;
 using Grid = vector<string>;
 
-struct Edge { int to; int cost; };
-
 ll ceil(ll a, ll b) { if (a % b == 0) return a / b; return (a / b) + 1; }
 mint modPow(ll x, ll n) { mint ans = 1; for (ll i = 0; i < n; i++) ans *= x; return ans; }
 ll gcd(ll x, ll y) { if (x < y) swap(x, y); ll r; while (y > 0) { r = x % y; x = y; y = r; } return x; }
@@ -35,20 +33,39 @@ template <class T> using Graph = vector<vector<T>>;
 
 // ======================================== //
 
-int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
-
-    vector<vector<ll>> v;
-    v.resize(N);
-    rep(i, 0, N) {
-        ll L;
-        cin >> L;
-
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
+vector<int> side;
+bool dfs(const Graph<int>& G, int v, int cur = 0) {
+    side[v] = cur;
+    for (auto next_v : G[v]) {
+        if (side[next_v] != -1) {
+            if (side[next_v] == cur) return false;
+            continue;
         }
+
+        if (!dfs(G, next_v, 1 - cur)) return false;
     }
+    return true;
+}
+
+int main() {
+    int N, M;
+    cin >> N >> M;
+    Graph<int> G(N);
+    rep(i, 0, M) {
+        int A, B;
+        cin >> A >> B;
+        A--; B--;
+        G[A].push_back(B);
+        G[B].push_back(A);
+    }
+
+    side.assign(N, -1);
+    bool flag = true;
+    rep(i, 0, N) {
+        if (side[i] != -1) continue;
+        if (!dfs(G, i)) flag = false;
+    }
+
+    if (flag) cout << "Yes" << endl;
+    else cout << "No" << endl;
 }

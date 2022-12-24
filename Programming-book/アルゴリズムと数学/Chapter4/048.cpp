@@ -20,7 +20,7 @@ using Pair_int = pair<int, int>;
 using Pair_ll = pair<ll, ll>;
 using Grid = vector<string>;
 
-struct Edge { int to; int cost; };
+struct Edge { ll to; ll cost; };
 
 ll ceil(ll a, ll b) { if (a % b == 0) return a / b; return (a / b) + 1; }
 mint modPow(ll x, ll n) { mint ans = 1; for (ll i = 0; i < n; i++) ans *= x; return ans; }
@@ -35,20 +35,46 @@ template <class T> using Graph = vector<vector<T>>;
 
 // ======================================== //
 
-int main() {
-    int N;
-    cin >> N;
-    cout << fix(10) << N << endl;
+ll K;
+vector<int> dist(1 << 18);
+vector<bool> used(1 << 18);
 
-    vector<vector<ll>> v;
-    v.resize(N);
-    rep(i, 0, N) {
-        ll L;
-        cin >> L;
+void dijkstra(Graph<Edge>& G) {
+    dist.assign(K, 1 << 30);
+    used.assign(K, false);
+    priority_queue<Pair_int, vector<Pair_int>, greater<Pair_int>> que;
+    que.push(make_pair(0, 0));
+    while (!que.empty()) {
+        int p = que.top().second;
+        que.pop();
 
-        v[i].resize(L);
-        rep(j, 0, L) {
-            cin >> v[i][j];
+        if (used[p]) continue;
+
+        used[p] = true;
+        for (auto& i : G[p])
+        {
+            int to = i.to;
+            int cost = dist[p] + i.cost;
+
+            if (p == 0) cost = i.cost;
+
+            if (dist[to] > cost) {
+                dist[to] = cost;
+                que.push(make_pair(dist[to], to));
+            }
         }
     }
+}
+
+int main() {
+    cin >> K;
+    Graph<Edge> G(1 << 18);
+    rep(i, 0, K) rep(j, 0, 10) {
+        if (i == 0 && j == 0) continue;
+        G[i].push_back(Edge{ (i * 10 + j) % K, j });
+    }
+
+    dijkstra(G);
+
+    cout << dist[0] << endl;
 }
